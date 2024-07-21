@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paid_amt</title>
+    <style>
+        body{
+            background-color: #FFCBCB;
+        }
+        .container{
+            background-color: #FFEAE3;
+            padding: 20px;
+            margin: auto;
+            width: 30%;
+            position: absolute;
+            top:40%;
+            left: 50%;
+transform: translate(-50%,-50%);
+}
+p{color:red;}
+.inner{
+    display: flex;
+    justify-content: center;
+    line-height: 20px;
+}
+.inner td{
+    padding: 20px;
+    font-size: 20px;
+}
+.inner input{
+    padding: 9px;
+}
+#tot ul{  
+    list-style: none;
+}
+
+#tot li{font-size: 18px;
+    font-weight: bold;
+color:brown;
+line-height: 22px;
+}
+table tr{
+    font-weight: bold;
+}
+
+button{
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+button:hover{
+   
+    
+    border-radius: 50px;
+
+}
+
+.btn{
+    margin-left: 30px;
+}
+  
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner">
+               <form>
+             <center>   <h2>Reduce Paid Amount From Account</h2>
+             </center>
+<table>
+    
+    <tr>
+        <td><label>Name</label></td>
+        <td><input type="text" id="name">
+            <br>
+            <p id="bn"></p></td>
+    </tr>
+    
+
+    <tr>
+        <td><label>Mobile No</label></td>
+        <td><input type="number" id="mno">
+            <br>
+            <p id="no"></p></td>
+    </tr>
+    
+
+    <tr>
+        <td><label>Returned Amount </label></td>
+        <td><input type="number" id="bamt">
+            <br>
+            <p id="amt"></p></td>
+    </tr>
+    </table>
+
+    <center>
+        <button onclick="addtoac()"  style="background-color: #FFEAE3 ;padding:10px;font-weight:bold ;font-size:16px ;" type="button">Reduce Amount</button>
+    </center>    
+    <div id="tot">
+
+    </div>
+    <button class="btn" style="background-color:brown; padding:10px;font-weight:bold ;font-size:16px ;" type="button"><a  href="index.php" style="text-decoration:none;color:#FFCBCB">Back to home page</a> </button>
+    
+        </form>
+    </div>
+    
+</div>
+<script>
+    function addtoac(){
+        
+var name=document.getElementById("name").value;
+
+var mno=document.getElementById("mno").value;
+
+var bamt=document.getElementById("bamt").value;
+if(name==="")
+    {
+        document.getElementById("bn").innerText="Enter your name";
+    }
+    else {
+        document.getElementById("bn").style.display="none";
+        
+    }
+    if(mno==="")
+        {
+            document.getElementById("no").innerText="Enter  mobile number";
+        }
+        else if(isNaN(mno)){
+            document.getElementById("no").innerText="Enter  mobile number";
+        }
+        else {
+            document.getElementById("no").style.display="none";
+            
+        }
+        if(bamt==="")
+        {
+            document.getElementById("amt").innerText="Enter  Amount";
+        }
+        else if(isNaN(bamt)){
+            document.getElementById("amt").innerText="Enter  Amount";
+        }
+        else {
+            document.getElementById("amt").style.display="none";
+            
+        }
+        obj=new XMLHttpRequest();
+        obj.open("GET","pay.php?name="+name+"&mno="+mno+"&bamt="+bamt);
+
+        obj.onreadystatechange=function(){
+            if(obj.readyState===4 && obj.status===200)
+            {
+document.getElementById("tot").innerHTML=obj.responseText;
+            }
+        }
+  obj.send();
+    }
+</script>
+</body>
+</html>
